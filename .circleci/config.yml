@@ -1,5 +1,4 @@
-version: "2.1"
-
+version: '2.1'
 orbs:
   node: circleci/node@5.1.0
 
@@ -23,7 +22,7 @@ jobs:
       - checkout:
           path: ~/project/
       - node/install:
-          node-version: "20.9"
+          node-version: '20.9'
       - run: node --version
       - run: npm i -g @railway/cli
 
@@ -38,15 +37,22 @@ jobs:
               railway --version
             fi
 
-      # Despliegue hacia Railway
+      # Despliegue: indicar el servicio correcto en Railway
       - run:
           name: Deploy to Railway App
           command: |
             cd bankchurn-api
             railway up --service "triumphant-exploration" --detach
 
+tags_only: &tags_only
+  filters:
+    branches:
+      ignore: /.*/
+    tags:
+      only: /^.*/
+
 workflows:
-  version: 2
+  version: 1
   deploy_pipeline:
     jobs:
       - deploy_app_to_railway:
