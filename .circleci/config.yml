@@ -37,7 +37,6 @@ jobs:
               railway --version
             fi
 
-      # Despliegue: indicar el servicio correcto en Railway
       - run:
           name: Deploy to Railway App
           command: |
